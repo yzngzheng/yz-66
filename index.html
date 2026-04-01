@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <!-- 视口设置：确保移动端正确缩放 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NEON//GHOST™ | 数字幽灵创作者</title>
+    <!-- 引入本地CSS文件 -->
+    <link rel="stylesheet" href="./css/style.css">
+    <!-- 引入Google字体：Orbitron用于科技标题，Noto Sans SC用于中文正文 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;700;900&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- 背景动画层：包含噪点纹理和旋转光晕效果 -->
+    <div class="bg-effects">
+        <div class="noise-overlay"></div> <!-- 噪点覆盖层 -->
+        <div class="rotating-halo"></div> <!-- 旋转光晕 -->
+        <div class="grid-floor"></div> <!-- 透视网格地板 -->
+    </div>
+
+    <!-- 导航栏：固定定位，毛玻璃效果 -->
+    <nav class="navbar">
+        <div class="nav-brand">
+            <!-- Logo使用故障效果 -->
+            <span class="glitch-text" data-text="NEON//GHOST">NEON//GHOST™</span>
+        </div>
+        <!-- 汉堡菜单：纯CSS实现，使用checkbox hack -->
+        <input type="checkbox" id="menu-toggle" class="menu-checkbox">
+        <label for="menu-toggle" class="menu-icon">
+            <span></span>
+            <span></span>
+            <span></span>
+        </label>
+        <!-- 导航链接：赛博朋克风格命名 -->
+        <ul class="nav-links">
+            <li><a href="#hero" class="nav-link">[ 狂想 ]</a></li>
+            <li><a href="#about" class="nav-link">[ 崩坏 ]</a></li>
+            <li><a href="#works" class="nav-link">[ 造物 ]</a></li>
+            <li><a href="#contact" class="nav-link">[ 链接 ]</a></li>
+        </ul>
+    </nav>
+
+    <!-- 首屏Hero区域：超大字体、故障效果、3D倾斜 -->
+    <header class="hero" id="hero">
+        <div class="hero-content">
+            <!-- 主标题：多层故障叠加 -->
+            <h1 class="hero-title">
+                <span class="glitch-layer" data-text="数字幽灵">数字幽灵</span>
+                <span class="glitch-layer-secondary" data-text="DIGITAL_GHOST">DIGITAL_GHOST</span>
+            </h1>
+            <!-- 副标题：带打字机光标效果 -->
+            <p class="hero-subtitle">
+                <span class="typing-text">在虚拟与现实的裂缝中 // 创造视觉暴力美学</span>
+                <span class="cursor-blink">_</span>
+            </p>
+            <!-- 号召性按钮：霓虹光边脉冲效果 -->
+            <a href="#works" class="cta-button">
+                <span class="btn-text">进入矩阵</span>
+                <span class="btn-glitch"></span>
+            </a>
+        </div>
+        <!-- 装饰性几何图形：浮动动画 -->
+        <div class="floating-shapes">
+            <div class="shape shape-1"></div> <!-- 三角形 -->
+            <div class="shape shape-2"></div> <!-- 圆形 -->
+            <div class="shape shape-3"></div> <!-- 方形 -->
+        </div>
+        <!-- 滚动提示：底部箭头动画 -->
+        <div class="scroll-indicator">
+            <span>↓ 向下潜入 ↓</span>
+        </div>
+    </header>
+
+    <!-- 关于/技能区域：不规则多边形布局 -->
+    <section class="about-section" id="about">
+        <div class="section-header">
+            <h2 class="section-title glitch-text" data-text="// 系统诊断">// 系统诊断</h2>
+            <p class="section-desc">加载个人核心模块...</p>
+        </div>
+        
+        <!-- 技能容器：使用CSS Grid不规则布局 -->
+        <div class="skills-container">
+            <!-- 技能卡片1：带进度条动画 -->
+            <div class="skill-card" style="--i:1">
+                <div class="skill-icon">⚡</div>
+                <h3>视觉暴力</h3>
+                <div class="skill-bar">
+                    <div class="skill-progress" style="--target:95%"></div>
+                </div>
+                <span class="skill-percent">95%</span>
+            </div>
+            
+            <!-- 技能卡片2 -->
+            <div class="skill-card" style="--i:2">
+                <div class="skill-icon">🔮</div>
+                <h3>故障艺术</h3>
+                <div class="skill-bar">
+                    <div class="skill-progress" style="--target:92%"></div>
+                </div>
+                <span class="skill-percent">92%</span>
+            </div>
+            
+            <!-- 技能卡片3 -->
+            <div class="skill-card" style="--i:3">
+                <div class="skill-icon">🎲</div>
+                <h3>3D扭曲</h3>
+                <div class="skill-bar">
+                    <div class="skill-progress" style="--target:88%"></div>
+                </div>
+                <span class="skill-percent">88%</span>
+            </div>
+            
+            <!-- 技能卡片4 -->
+            <div class="skill-card" style="--i:4">
+                <div class="skill-icon">💀</div>
+                <h3>赛博巫术</h3>
+                <div class="skill-bar">
+                    <div class="skill-progress" style="--target:90%"></div>
+                </div>
+                <span class="skill-percent">90%</span>
+            </div>
+        </div>
+
+        <!-- 关于文本：带边框发光效果 -->
+        <div class="about-text">
+            <p>
+                <span class="highlight-text">警告：</span> 
+                这不是一个普通的创作者。我游走在代码与疯狂的边缘，将像素炼成毒药，将CSS变成幻觉。
+                如果你正在寻找<span class="glitch-word" data-text="安全">安全</span>的设计，请立即关闭此页面。
+            </p>
+        </div>
+    </section>
+
+    <!-- 作品展示区域：3D透视卡片 -->
+    <section class="works-section" id="works">
+        <div class="section-header">
+            <h2 class="section-title glitch-text" data-text="// 造物档案">// 造物档案</h2>
+            <p class="section-desc">近期从数字深渊中提取的实体</p>
+        </div>
+
+        <!-- 作品网格：悬停3D倾斜效果 -->
+        <div class="works-grid">
+            <!-- 作品卡片1 -->
+            <article class="work-card">
+                <div class="card-inner">
+                    <div class="card-front">
+                        <div class="work-image" style="background: linear-gradient(135deg, #ff006e 0%, #8338ec 100%)">
+                            <span class="work-number">01</span>
+                        </div>
+                        <h3 class="work-title">霓虹殉道者</h3>
+                        <p class="work-category">交互装置 / 2026</p>
+                    </div>
+                    <div class="card-back">
+                        <p>一个会呼吸的网站，用户的每一次点击都会让它更加<span class="text-glitch">疯狂</span>。</p>
+                        <span class="view-more">查看详情 →</span>
+                    </div>
+                </div>
+            </article>
+
+            <!-- 作品卡片2 -->
+            <article class="work-card">
+                <div class="card-inner">
+                    <div class="card-front">
+                        <div class="work-image" style="background: linear-gradient(135deg, #3a86ff 0%, #06ffa5 100%)">
+                            <span class="work-number">02</span>
+                        </div>
+                        <h3 class="work-title">数据瘟疫</h3>
+                        <p class="work-category">视觉识别 / 2026</p>
+                    </div>
+                    <div class="card-back">
+                        <p>为地下电子音乐节设计的<span class="text-glitch">病毒式</span>视觉系统，具有自我复制特性。</p>
+                        <span class="view-more">查看详情 →</span>
+                    </div>
+                </div>
+            </article>
+
+            <!-- 作品卡片3 -->
+            <article class="work-card">
+                <div class="card-inner">
+                    <div class="card-front">
+                        <div class="work-image" style="background: linear-gradient(135deg, #ffbe0b 0%, #fb5607 100%)">
+                            <span class="work-number">03</span>
+                        </div>
+                        <h3 class="work-title">故障圣歌</h3>
+                        <p class="work-category">生成艺术 / 2025</p>
+                    </div>
+                    <div class="card-back">
+                        <p>使用纯CSS算法生成的<span class="text-glitch">无限</span>故障图案，永不重复。</p>
+                        <span class="view-more">查看详情 →</span>
+                    </div>
+                </div>
+            </article>
+        </div>
+    </section>
+
+    <!-- 联系区域：夸张的表单设计 -->
+    <section class="contact-section" id="contact">
+        <div class="section-header">
+            <h2 class="section-title glitch-text" data-text="// 建立链接">// 建立链接</h2>
+            <p class="section-desc">向数字虚空发送信号</p>
+        </div>
+
+        <div class="contact-container">
+            <!-- 联系表单：带发光边框和聚焦动画 -->
+            <form class="contact-form">
+                <div class="form-group">
+                    <input type="text" id="name" required placeholder=" ">
+                    <label for="name">你的代号</label>
+                    <div class="input-line"></div>
+                </div>
+                <div class="form-group">
+                    <input type="email" id="email" required placeholder=" ">
+                    <label for="email">数字地址</label>
+                    <div class="input-line"></div>
+                </div>
+                <div class="form-group">
+                    <textarea id="message" rows="4" required placeholder=" "></textarea>
+                    <label for="message">传输内容</label>
+                    <div class="input-line"></div>
+                </div>
+                <button type="submit" class="submit-btn">
+                    <span>发送信号</span>
+                    <div class="btn-particles"></div>
+                </button>
+            </form>
+
+            <!-- 社交链接：图标带悬停故障 -->
+            <div class="social-links">
+                <a href="#" class="social-link" data-text="GH">GH</a>
+                <a href="#" class="social-link" data-text="IG">IG</a>
+                <a href="#" class="social-link" data-text="TW">TW</a>
+                <a href="#" class="social-link" data-text="EM">EM</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 页脚：简洁但有设计感 -->
+    <footer class="footer">
+        <div class="footer-content">
+            <p class="footer-text">
+                <span class="glitch-text" data-text="NEON//GHOST™">NEON//GHOST™</span>
+                <span class="copyright">// 2026 数字幽灵保留所有权利 //</span>
+            </p>
+            <p class="footer-quote">"在混乱中创造秩序，在秩序中制造混乱"</p>
+        </div>
+        <!-- 回到顶部按钮 -->
+        <a href="#hero" class="back-to-top">
+            <span>↑</span>
+        </a>
+    </footer>
+</body>
+</html>
