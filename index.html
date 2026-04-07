@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>首页 - 赛博空间</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            background: #0a0a0f;
+            font-family: 'Courier New', monospace;
+            overflow-x: hidden;
+        }
+        
+        /* 导航栏样式（与之前一致） */
+        .navbar-cyber {
+            background: linear-gradient(180deg, #0d0d15 0%, rgba(13, 13, 21, 0.95) 100%);
+            border-bottom: 2px solid;
+            border-image: linear-gradient(90deg, #ff00ff, #00ffff, #ff00ff) 1;
+            box-shadow: 0 0 20px rgba(255, 0, 255, 0.3), 0 0 40px rgba(0, 255, 255, 0.2);
+            padding: 15px 0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .navbar-cyber::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #00ffff, transparent);
+            animation: scan 3s infinite linear;
+        }
+        
+        @keyframes scan {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+        
+        .navbar-brand {
+            font-size: 1.8rem;
+            font-weight: 900;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            background: linear-gradient(90deg, #ff00ff, #00ffff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 10px rgba(255, 0, 255, 0.8), 0 0 20px rgba(0, 255, 255, 0.8);
+            position: relative;
+        }
+        
+        .navbar-brand::before, .navbar-brand::after {
+            content: 'CYBER';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, #ff00ff, #00ffff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .navbar-brand::before {
+            animation: glitch-1 0.3s infinite linear alternate-reverse;
+            clip-path: polygon(0 0, 100% 0, 100% 35%, 0 35%);
+        }
+        
+        .navbar-brand::after {
+            animation: glitch-2 0.3s infinite linear alternate-reverse;
+            clip-path: polygon(0 65%, 100% 65%, 100% 100%, 0 100%);
+        }
+        
+        @keyframes glitch-1 {
+            0% { transform: translate(0); }
+            100% { transform: translate(-3px, -3px); }
+        }
+        
+        @keyframes glitch-2 {
+            0% { transform: translate(0); }
+            100% { transform: translate(3px, 3px); }
+        }
+        
+        .nav-link {
+            color: #00ffff !important;
+            font-weight: bold;
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            padding: 10px 25px !important;
+            margin: 0 5px;
+            border: 1px solid transparent;
+            border-image: linear-gradient(90deg, #ff00ff, #00ffff) 1;
+            transition: all 0.3s ease;
+            background: rgba(0, 255, 255, 0.05);
+        }
+        
+        .nav-link:hover {
+            color: #ff00ff !important;
+            background: rgba(255, 0, 255, 0.1);
+            text-shadow: 0 0 10px #ff00ff, 0 0 20px #ff00ff;
+            box-shadow: 0 0 15px rgba(255, 0, 255, 0.5);
+            transform: translateY(-2px);
+        }
+        
+        .nav-link.active {
+            background: linear-gradient(90deg, rgba(255, 0, 255, 0.2), rgba(0, 255, 255, 0.2));
+            color: #00ffff !important;
+            text-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff;
+            border: 1px solid #00ffff;
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.6);
+            animation: neon-pulse 2s infinite ease-in-out;
+        }
+        
+        @keyframes neon-pulse {
+            0%, 100% { box-shadow: 0 0 20px rgba(0, 255, 255, 0.6); }
+            50% { box-shadow: 0 0 30px rgba(0, 255, 255, 0.8); }
+        }
+        
+        .navbar-toggler {
+            border: 2px solid #00ffff;
+            box-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+        }
+        
+        .navbar-toggler-icon {
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='%2300ffff' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+        }
+        
+        .navbar-collapse {
+            background: rgba(10, 10, 15, 0.98);
+            border: 1px solid;
+            border-image: linear-gradient(90deg, #ff00ff, #00ffff) 1;
+            margin-top: 10px;
+            padding: 15px;
+            box-shadow: 0 0 30px rgba(0, 255, 255, 0.3);
+        }
+        
+        @media (max-width: 991px) {
+            .nav-link {
+                margin: 5px 0;
+                text-align: center;
+                border: 1px solid;
+                border-image: linear-gradient(90deg, #ff00ff, #00ffff) 1;
+            }
+        }
+        
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: linear-gradient(rgba(0, 255, 255, 0.03) 1px, transparent 1px),
+                              linear-gradient(90deg, rgba(0, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            pointer-events: none;
+            z-index: -1;
+        }
+        
+        /* 首页特有样式 */
+        .hero-section {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding-top: 80px;
+            position: relative;
+        }
+        
+        .hero-content {
+            text-align: center;
+            z-index: 1;
+        }
+        
+        .hero-title {
+            font-size: 5rem;
+            font-weight: 900;
+            background: linear-gradient(90deg, #ff00ff, #00ffff, #ff00ff);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            animation: text-shine 3s linear infinite;
+            text-transform: uppercase;
+            letter-spacing: 10px;
+            margin-bottom: 30px;
+        }
+        
+        @keyframes text-shine {
+            to { background-position: 200% center; }
+        }
+        
+        .hero-subtitle {
+            font-size: 1.5rem;
+            color: #00ffff;
+            text-shadow: 0 0 10px rgba(0, 255, 255, 0.8);
+            margin-bottom: 40px;
+            letter-spacing: 3px;
+        }
+        
+        .cyber-btn {
+            display: inline-block;
+            padding: 15px 40px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #00ffff;
+            background: transparent;
+            border: 2px solid #00ffff;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            margin: 10px;
+        }
+        
+        .cyber-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 255, 255, 0.4), transparent);
+            transition: left 0.5s ease;
+        }
+        
+        .cyber-btn:hover::before {
+            left: 100%;
+        }
+        
+        .cyber-btn:hover {
+            background: rgba(0, 255, 255, 0.1);
+            box-shadow: 0 0 30px rgba(0, 255, 255, 0.6), inset 0 0 30px rgba(0, 255, 255, 0.2);
+            transform: translateY(-3px);
+        }
+        
+        /* 粒子效果 */
+        .particles {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 0;
+        }
+        
+        .particle {
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            background: #00ffff;
+            box-shadow: 0 0 10px #00ffff;
+            animation: float-up 8s infinite linear;
+        }
+        
+        @keyframes float-up {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100vh) rotate(720deg);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav class="navbar navbar-expand-lg navbar-cyber fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">CYBER</a>
+            
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" 
+                    data-bs-target="#cyberNav" aria-controls="cyberNav" 
+                    aria-expanded="false" aria-label="切换导航菜单">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <div class="collapse navbar-collapse" id="cyberNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="index.html">首页</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="about.html">关于我</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="skills.html">技能</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="works.html">作品</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- 首页内容 -->
+    <section class="hero-section">
+        <!-- 粒子效果 -->
+        <div class="particles" id="particles"></div>
+        
+        <div class="hero-content">
+            <h1 class="hero-title">欢迎来到<br>赛博空间</h1>
+            <p class="hero-subtitle">// 系统初始化完成 // 连接建立成功</p>
+            <div>
+                <a href="about.html" class="cyber-btn">了解更多</a>
+                <a href="works.html" class="cyber-btn">查看作品</a>
+            </div>
+        </div>
+    </section>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // 自动高亮当前页面
+        document.addEventListener('DOMContentLoaded', function() {
+            const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+            const navLinks = document.querySelectorAll('.nav-link');
+            navLinks.forEach(link => link.classList.remove('active'));
+            navLinks.forEach(link => {
+                if (link.getAttribute('href') === currentPage) {
+                    link.classList.add('active');
+                }
+            });
+            
+            // 创建粒子效果
+            const particlesContainer = document.getElementById('particles');
+            for (let i = 0; i < 50; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 8 + 's';
+                particle.style.animationDuration = (Math.random() * 4 + 6) + 's';
+                if (Math.random() > 0.5) {
+                    particle.style.background = '#ff00ff';
+                    particle.style.boxShadow = '0 0 10px #ff00ff';
+                }
+                particlesContainer.appendChild(particle);
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>作品 - 赛博空间</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            background: #0a0a0f;
+            font-family: 'Courier New', monospace;
+            color: #00ffff;
+        }
+        
+        /* 导航栏样式（与之前一致） */
+        .navbar-cyber {
+            background: linear-gradient(180deg, #0d0d15 0%, rgba(13, 13, 21, 0.95) 100%);
+            border-bottom: 2px solid;
+            border-image: linear-gradient(90deg, #ff00ff, #00ffff, #ff00ff) 1;
+            box-shadow: 0 0 20px rgba(255, 0, 255, 0.3), 0 0 40px rgba(0, 255, 255, 0.2);
+            padding: 15px 0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .navbar-cyber::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #00ffff, transparent);
+            animation: scan 3s infinite linear;
+        }
+        
+        @keyframes scan {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+        
+        .navbar-brand {
+            font-size: 1.8rem;
+            font-weight: 900;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            background: linear-gradient(90deg, #ff00ff, #00ffff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            position: relative;
+        }
+        
+        .navbar-brand::before, .navbar-brand::after {
+            content: 'CYBER';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, #ff00ff, #00ffff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .navbar-brand::before {
+            animation: glitch-1 0.3s infinite linear alternate-reverse;
+            clip-path: polygon(0 0, 100% 0, 100% 35%, 0 35%);
+        }
+        
+        .navbar-brand::after {
+            animation: glitch-2 0.3s infinite linear alternate-reverse;
+            clip-path: polygon(0 65%, 100% 65%, 100% 100%, 0 100%);
+        }
+        
+        @keyframes glitch-1 {
+            0% { transform: translate(0); }
+            100% { transform: translate(-3px, -3px); }
+        }
+        
+        @keyframes glitch-2 {
+            0% { transform: translate(0); }
+            100% { transform: translate(3px, 3px); }
+        }
+        
+        .nav-link {
+            color: #00ffff !important;
+            font-weight: bold;
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            padding: 10px 25px !important;
+            margin: 0 5px;
+            border: 1px solid transparent;
+            border-image: linear-gradient(90deg, #ff00ff, #00ffff) 1;
+            transition: all 0.3s ease;
+            background: rgba(0, 255, 255, 0.05);
+        }
+        
+        .nav-link:hover {
+            color: #ff00ff !important;
+            background: rgba(255, 0, 255, 0.1);
+            text-shadow: 0 0 10px #ff00ff;
+            box-shadow: 0 0 15px rgba(255, 0, 255, 0.5);
+            transform: translateY(-2px);
+        }
+        
+        .nav-link.active {
+            background: linear-gradient(90deg, rgba(255, 0, 255, 0.2), rgba(0, 255, 255, 0.2));
+            color: #00ffff !important;
+            text-shadow: 0 0 10px #00ffff;
+            border: 1px solid #00ffff;
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.6);
+            animation: neon-pulse 2s infinite ease-in-out;
+        }
+        
+        @keyframes neon-pulse {
+            0%, 100% { box-shadow: 0 0 20px rgba(0, 255, 255, 0.6); }
+            50% { box-shadow: 0 0 30px rgba(0, 255, 255, 0.8); }
+        }
+        
+        .navbar-toggler {
+            border: 2px solid #00ffff;
+            box-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+        }
+        
+        .navbar-toggler-icon {
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='%2300ffff' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+        }
+        
+        .navbar-collapse {
+            background: rgba(10, 10, 15, 0.98);
+            border: 1px solid;
+            border-image: linear-gradient(90deg, #ff00ff, #00ffff) 1;
+            margin-top: 10px;
+            padding: 15px;
+        }
+        
+        @media (max-width: 991px) {
+            .nav-link {
+                margin: 5px 0;
+                text-align: center;
+                border: 1px solid;
+                border-image: linear-gradient(90deg, #ff00ff, #00ffff) 1;
+            }
+        }
+        
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: linear-gradient(rgba(0, 255, 255, 0.03) 1px, transparent 1px),
+                              linear-gradient(90deg, rgba(0, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            pointer-events: none;
+            z-index: -1;
+        }
+        
+        /* 作品页面样式 */
+        .works-section {
+            padding-top: 120px;
+            padding-bottom: 60px;
+            min-height: 100vh;
+        }
+        
+        .section-title {
+            font-size: 2rem;
+            font-weight: 900;
+            background: linear-gradient(90deg, #ff00ff, #00ffff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-align: center;
+            margin-bottom: 50px;
+            text-transform: uppercase;
+            letter-spacing: 5px;
+        }
+        
+        .works-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+        }
+        
+        .work-card {
+            background: rgba(10, 10, 15, 0.9);
+            border: 2px solid;
+            border-image: linear-gradient(180deg, #ff00ff, #00ffff) 1;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            position: relative;
+        }
+        
+        .work-card::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, #ff00ff, #00ffff, #ff00ff, #00ffff);
+            background-size: 400% 400%;
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            animation: gradient-rotate 3s ease infinite;
+        }
+        
+        @keyframes gradient-rotate {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        .work-card:hover::before {
+            opacity: 0.7;
+        }
+        
+        .work-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(255, 0, 255, 0.4);
+        }
+        
+        .work-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-bottom: 2px solid #00ffff;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .work-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+        
+        .work-card:hover .work-image img {
+            transform: scale(1.1);
+        }
+        
+        .work-content {
+            padding: 20px;
+        }
+        
+        .work-title {
+            font-size: 1.5rem;
+            color: #00ffff;
+            font-weight: bold;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 0 0 10px rgba(0, 255, 255, 0.8);
+        }
+        
+        .work-description {
+            color: #b8b8b8;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+        
+        .work-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        
+        .tag {
+            background: rgba(255, 0, 255, 0.1);
+            border: 1px solid #ff00ff;
+            color: #ff00ff;
+            padding: 5px 15px;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+        }
+        
+        .tag:hover {
+            background: #ff00ff;
+            color: #0a0a0f;
+            box-shadow: 0 0 15px rgba(255, 0, 255, 0.6);
+        }
+        
+        .work-link {
+            display: inline-block;
+            padding: 10px 25px;
+            background: transparent;
+            border: 2px solid #00ffff;
+            color: #00ffff;
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+        
+        .work-link:hover {
+            background: #00ffff;
+            color: #0a0a0f;
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.8);
+        }
+        
+        /* 空状态样式 */
+        .empty-state {
+            text-align: center;
+            padding: 80px 20px;
+            border: 2px dashed #00ffff;
+            grid-column: 1 / -1;
+        }
+        
+        .empty-state p {
+            color: #00ffff;
+            font-size: 1.2rem;
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav class="navbar navbar-expand-lg navbar-cyber fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">CYBER</a>
+            
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" 
+                    data-bs-target="#cyberNav" aria-controls="cyberNav" 
+                    aria-expanded="false" aria-label="切换导航菜单">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <div class="collapse navbar-collapse" id="cyberNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">首页</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="about.html">关于我</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="skills.html">技能</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="works.html">作品</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- 作品内容 -->
+    <section class="works-section">
+        <div class="container">
+            <h2 class="section-title">// 作品展示</h2>
+            
+            <div class="works-grid">
+                <!-- 作品1 -->
+                <div class="work-card">
+                    <div class="work-image">
+                        <img src="https://via.placeholder.com/400x200/1a1a2e/00ffff?text=PROJECT+01" alt="项目1">
+                    </div>
+                    <div class="work-content">
+                        <h3 class="work-title">赛博朋克官网</h3>
+                        <p class="work-description">
+                            // 使用HTML5、CSS3、JavaScript开发的赛博朋克风格个人网站，包含完整的导航系统和动态效果。
+                        </p>
+                        <div class="work-tags">
+                            <span class="tag">HTML5</span>
+                            <span class="tag">CSS3</span>
+                            <span class="tag">JavaScript</span>
+                        </div>
+                        <a href="#" class="work-link">查看详情</a>
+                    </div>
+                </div>
+                
+                <!-- 作品2 -->
+                <div class="work-card">
+                    <div class="work-image">
+                        <img src="https://via.placeholder.com/400x200/1a1a2e/ff00ff?text=PROJECT+02" alt="项目2">
+                    </div>
+                    <div class="work-content">
+                        <h3 class="work-title">数据可视化平台</h3>
+                        <p class="work-description">
+                            // 基于Vue.js和ECharts开发的数据可视化平台，支持实时数据展示和交互式图表。
+                        </p>
+                        <div class="work-tags">
+                            <span class="tag">Vue.js</span>
+                            <span class="tag">ECharts</span>
+                            <span class="tag">Node.js</span>
+                        </div>
+                        <a href="#" class="work-link">查看详情</a>
+                    </div>
+                </div>
+                
+                <!-- 作品3 -->
+                <div class="work-card">
+                    <div class="work-image">
+                        <img src="https://via.placeholder.com/400x200/1a1a2e/00ffff?text=PROJECT+03" alt="项目3">
+                    </div>
+                    <div class="work-content">
+                        <h3 class="work-title">智能聊天机器人</h3>
+                        <p class="work-description">
+                            // 使用Python和机器学习技术开发的智能聊天机器人，支持自然语言处理和对话生成。
+                        </p>
+                        <div class="work-tags">
+                            <span class="tag">Python</span>
+                            <span class="tag">AI</span>
+                            <span class="tag">NLP</span>
+                        </div>
+                        <a href="#" class="work-link">查看详情</a>
+                    </div>
+                </div>
+                
+                <!-- 作品4 -->
+                <div class="work-card">
+                    <div class="work-image">
+                        <img src="https://via.placeholder.com/400x200/1a1a2e/ff00ff?text=PROJECT+04" alt="项目4">
+                    </div>
+                    <div class="work-content">
+                        <h3 class="work-title">电商管理系统</h3>
+                        <p class="work-description">
+                            // 全栈电商管理系统，包含商品管理、订单处理、用户管理等核心功能模块。
+                        </p>
+                        <div class="work-tags">
+                            <span class="tag">React</span>
+                            <span class="tag">MongoDB</span>
+                            <span class="tag">Express</span>
+                        </div>
+                        <a href="#" class="work-link">查看详情</a>
+                    </div>
+                </div>
+                
+                <!-- 作品5 -->
+                <div class="work-card">
+                    <div class="work-image">
+                        <img src="https://via.placeholder.com/400x200/1a1a2e/00ffff?text=PROJECT+05" alt="项目5">
+                    </div>
+                    <div class="work-content">
+                        <h3 class="work-title">移动端APP</h3>
+                        <p class="work-description">
+                            // 使用React Native开发的跨平台移动应用，支持iOS和Android双平台。
+                        </p>
+                        <div class="work-tags">
+                            <span class="tag">React Native</span>
+                            <span class="tag">iOS</span>
+                            <span class="tag">Android</span>
+                        </div>
+                        <a href="#" class="work-link">查看详情</a>
+                    </div>
+                </div>
+                
+                <!-- 作品6 -->
+                <div class="work-card">
+                    <div class="work-image">
+                        <img src="https://via.placeholder.com/400x200/1a1a2e/ff00ff?text=PROJECT+06" alt="项目6">
+                    </div>
+                    <div class="work-content">
+                        <h3 class="work-title">区块链应用</h3>
+                        <p class="work-description">
+                            // 基于以太坊的去中心化应用，实现智能合约和代币交易功能。
+                        </p>
+                        <div class="work-tags">
+                            <span class="tag">Blockchain</span>
+                            <span class="tag">Solidity</span>
+                            <span class="tag">Web3</span>
+                        </div>
+                        <a href="#" class="work-link">查看详情</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // 自动高亮当前页面
+        document.addEventListener('DOMContentLoaded', function() {
+            const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+            const navLinks = document.querySelectorAll('.nav-link');
+            navLinks.forEach(link => link.classList.remove('active'));
+            navLinks.forEach(link => {
+                if (link.getAttribute('href') === currentPage) {
+                    link.classList.add('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
