@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <!-- 页面编码设置 -->
+    <meta charset="UTF-8">
+    <!-- 移动端适配设置 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- 页面标题 -->
+    <title>妖·田航 - 妖异灵动</title>
+    <!-- 引入Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <style>
+        /* ==================== 全局样式 ==================== */
+        /* 重置默认样式 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        /* 页面主体样式 - 暗黑基底 */
+        body {
+            background: #0a0a0a; /* 深空黑背景 */
+            min-height: 100vh;
+            font-family: 'Microsoft YaHei', sans-serif;
+            overflow-x: hidden;
+            color: #e0e0e0;
+        }
+        
+        /* ==================== 动态背景纹理 ==================== */
+        /* 背景容器 */
+        .bg-texture {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+        
+        /* 流动藤蔓纹理 */
+        .bg-texture::before {
+            content: '';
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            background: 
+                radial-gradient(ellipse at 30% 20%, rgba(0, 200, 150, 0.1) 0%, transparent 40%),
+                radial-gradient(ellipse at 70% 80%, rgba(10, 10, 10, 0.8) 0%, transparent 50%);
+            animation: vineFlow 15s infinite ease-in-out;
+        }
+        
+        /* 藤蔓流动动画 */
+        @keyframes vineFlow {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(-3%, 2%) scale(1.05); }
+        }
+        
+        /* 妖纹叠加 */
+        .bg-texture::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(circle at 20% 50%, rgba(0, 200, 150, 0.03) 0%, transparent 30%),
+                radial-gradient(circle at 80% 30%, rgba(0, 200, 150, 0.02) 0%, transparent 25%);
+            animation: runePulse 4s infinite ease-in-out;
+        }
+        
+        /* 符文脉动动画 */
+        @keyframes runePulse {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 0.8; }
+        }
+        
+        /* ==================== 导航栏样式 ==================== */
+        /* 导航栏基础样式 */
+        .navbar-cg {
+            background: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 2px solid #00C896; /* 妖系青绿边框 */
+            box-shadow: 0 4px 30px rgba(0, 200, 150, 0.3);
+            padding: 15px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        /* 导航栏装饰符文 */
+        .navbar-cg::before {
+            content: '妖';
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.5rem;
+            color: #00C896;
+            text-shadow: 0 0 10px rgba(0, 200, 150, 0.8);
+            opacity: 0.5;
+        }
+        
+        /* 网站标题样式 */
+        .navbar-brand {
+            font-size: 1.5rem;
+            font-weight: 900;
+            letter-spacing: 3px;
+            background: linear-gradient(135deg, #00C896, #0A0A0A);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 20px rgba(0, 200, 150, 0.5);
+        }
+        
+        /* 导航按钮样式 */
+        .nav-btn {
+            background: linear-gradient(135deg, rgba(0, 200, 150, 0.2), rgba(10, 10, 10, 0.3));
+            border: 1px solid #00C896;
+            color: #00C896;
+            padding: 10px 25px;
+            margin-left: 10px;
+            border-radius: 5px;
+            font-weight: bold;
+            letter-spacing: 2px;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        /* 导航按钮悬停效果 */
+        .nav-btn:hover {
+            background: linear-gradient(135deg, #00C896, #0A0A0A);
+            color: #fff;
+            box-shadow: 0 0 20px rgba(0, 200, 150, 0.6);
+            transform: translateY(-2px);
+        }
+        
+        /* 移动端折叠按钮 */
+        .navbar-toggler {
+            border: 2px solid #00C896;
+        }
+        
+        .navbar-toggler-icon {
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='%2300C896' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+        }
+        
+        /* ==================== 角色展示区域 ==================== */
+        /* 主容器样式 */
+        .role-container {
+            padding-top: 100px;
+            min-height: 100vh;
+        }
+        
+        /* 角色展示卡片 */
+        .role-card {
+            background: rgba(15, 15, 15, 0.9);
+            border: 2px solid #00C896;
+            border-radius: 20px;
+            box-shadow: 
+                0 0 30px rgba(0, 200, 150, 0.3),
+                inset 0 0 30px rgba(0, 200, 150, 0.1);
+            overflow: hidden;
+            position: relative;
+        }
+        
+        /* 角色卡片装饰 - 藤蔓纹理 */
+        .role-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                linear-gradient(90deg, transparent 49%, rgba(0, 200, 150, 0.05) 50%, transparent 51%),
+                linear-gradient(0deg, transparent 49%, rgba(0, 200, 150, 0.03) 50%, transparent 51%);
+            background-size: 30px 30px;
+            pointer-events: none;
+        }
+        
+        /* ==================== 左侧立绘区域 ==================== */
+        /* 立绘容器 */
+        .character-portrait {
+            position: relative;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 500px;
+            background: linear-gradient(180deg, rgba(0, 200, 150, 0.08), transparent);
+        }
+        
+        /* 立绘图片容器 */
+        .portrait-frame {
+            width: 100%;
+            max-width: 350px;
+            height: 400px;
+            border: 3px solid #00C896;
+            border-radius: 15px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 
+                0 0 30px rgba(0, 200, 150, 0.5),
+                inset 0 0 20px rgba(0, 0, 0, 0.3);
+            animation: frameFloat 3s infinite ease-in-out;
+        }
+        
+        /* 立绘框浮动动画 */
+        @keyframes frameFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        /* 立绘图片 */
+        .portrait-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        /* 立绘框架装饰 - 妖纹 */
+        .portrait-frame::before {
+            content: '妖';
+            position: absolute;
+            top: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 50px;
+            color: #00C896;
+            text-shadow: 0 0 20px rgba(0, 200, 150, 0.8);
+            z-index: 10;
+            animation: symbolPulse 2s infinite;
+        }
+        
+        /* 符号脉动动画 */
+        @keyframes symbolPulse {
+            0%, 100% { opacity: 0.8; transform: translateX(-50%) scale(1); }
+            50% { opacity: 1; transform: translateX(-50%) scale(1.1); }
+        }
+        
+        /* 立绘底部装饰 */
+        .portrait-frame::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 50%;
+            background: linear-gradient(to top, rgba(0, 200, 150, 0.25), transparent);
+            pointer-events: none;
+        }
+        
+        /* 角色名称 */
+        .role-title {
+            font-size: 3rem;
+            font-weight: 900;
+            margin-top: 30px;
+            background: linear-gradient(135deg, #00C896, #00ff88);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 30px rgba(0, 200, 150, 0.5);
+            letter-spacing: 5px;
+        }
+        
+        /* 角色前缀标签 */
+        .role-prefix {
+            display: inline-block;
+            background: linear-gradient(135deg, #00C896, #00A080);
+            color: #0A0A0A;
+            padding: 5px 20px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            margin-top: 10px;
+            letter-spacing: 3px;
+            font-weight: bold;
+            box-shadow: 0 0 15px rgba(0, 200, 150, 0.5);
+        }
+        
+        /* ==================== 右侧信息面板 ==================== */
+        /* 信息面板容器 */
+        .info-panel {
+            padding: 40px;
+            background: rgba(10, 10, 10, 0.8);
+        }
+        
+        /* 面板标题 */
+        .panel-title {
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: #00C896;
+            margin-bottom: 25px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid rgba(0, 200, 150, 0.3);
+            letter-spacing: 3px;
+        }
+        
+        /* ==================== 游戏数据面板 ==================== */
+        /* 数据项容器 */
+        .stat-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px solid rgba(0, 200, 150, 0.2);
+            transition: all 0.3s ease;
+        }
+        
+        /* 数据项悬停效果 */
+        .stat-item:hover {
+            background: rgba(0, 200, 150, 0.1);
+            padding-left: 10px;
+        }
+        
+        /* 数据标签 */
+        .stat-label {
+            color: #808080;
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+        
+        /* 数据值 */
+        .stat-value {
+            color: #00C896;
+            font-weight: 900;
+            font-size: 1.1rem;
+        }
+        
+        /* 稀有度标签 */
+        .rarity-tag {
+            background: linear-gradient(135deg, #00C896, #00ff88);
+            color: #0A0A0A;
+            padding: 3px 12px;
+            border-radius: 5px;
+            font-size: 0.85rem;
+            font-weight: bold;
+            animation: rarityGlow 2s infinite;
+        }
+        
+        /* 稀有度发光动画 */
+        @keyframes rarityGlow {
+            0%, 100% { box-shadow: 0 0 10px rgba(0, 200, 150, 0.5); }
+            50% { box-shadow: 0 0 20px rgba(0, 255, 136, 0.8); }
+        }
+        
+        /* ==================== 技能区域 ==================== */
+        /* 技能容器 */
+        .skill-section {
+            margin-top: 30px;
+        }
+        
+        /* 技能卡片 */
+        .skill-card {
+            background: rgba(0, 200, 150, 0.1);
+            border: 1px solid rgba(0, 200, 150, 0.3);
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 15px;
+            transition: all 0.3s ease;
+        }
+        
+        /* 技能卡片悬停 */
+        .skill-card:hover {
+            background: rgba(0, 200, 150, 0.2);
+            box-shadow: 0 0 20px rgba(0, 200, 150, 0.3);
+            transform: translateX(5px);
+        }
+        
+        /* 技能名称 */
+        .skill-name {
+            font-size: 1.1rem;
+            font-weight: 900;
+            color: #00C896;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+        }
+        
+        /* 技能类型标签 */
+        .skill-type {
+            font-size: 0.7rem;
+            background: rgba(10, 10, 10, 0.5);
+            color: #00C896;
+            padding: 2px 8px;
+            border-radius: 3px;
+            margin-left: 10px;
+            border: 1px solid rgba(0, 200, 150, 0.3);
+        }
+        
+        /* 技能描述 */
+        .skill-desc {
+            color: #a0a0a0;
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+        
+        /* ==================== 背景故事区域 ==================== */
+        /* 故事容器 */
+        .story-section {
+            margin-top: 30px;
+        }
+        
+        /* 故事内容 */
+        .story-content {
+            color: #b0b0b0;
+            line-height: 1.8;
+            font-size: 0.95rem;
+            padding: 20px;
+            background: rgba(0, 200, 150, 0.05);
+            border-left: 3px solid #00C896;
+            border-radius: 0 10px 10px 0;
+        }
+        
+        /* ==================== 底部按钮 ==================== */
+        /* 返回按钮容器 */
+        .action-buttons {
+            margin-top: 30px;
+            text-align: center;
+        }
+        
+        /* 返回按钮样式 */
+        .btn-return {
+            background: linear-gradient(135deg, #00C896, #00A080);
+            border: none;
+            color: #0A0A0A;
+            padding: 15px 40px;
+            font-size: 1.1rem;
+            font-weight: 900;
+            letter-spacing: 3px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 20px rgba(0, 200, 150, 0.4);
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        /* 返回按钮悬停 */
+        .btn-return:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 0 30px rgba(0, 200, 150, 0.6);
+            color: #0A0A0A;
+        }
+        
+        /* ==================== 特效装饰 ==================== */
+        /* 粒子容器 */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+        
+        /* 单个粒子 */
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: #00C896;
+            border-radius: 50%;
+            animation: particleFloat 6s infinite ease-in-out;
+            opacity: 0.7;
+        }
+        
+        /* 粒子浮动动画 */
+        @keyframes particleFloat {
+            0%, 100% {
+                transform: translateY(0) translateX(0) rotate(0deg);
+                opacity: 0.7;
+            }
+            50% {
+                transform: translateY(-80px) translateX(30px) rotate(180deg);
+                opacity: 0.3;
+            }
+        }
+        
+        /* ==================== 响应式适配 ==================== */
+        /* 平板设备 */
+        @media (max-width: 992px) {
+            .role-title {
+                font-size: 2.5rem;
+            }
+            
+            .info-panel {
+                padding: 30px;
+            }
+        }
+        
+        /* 手机设备 */
+        @media (max-width: 768px) {
+            .role-container {
+                padding-top: 80px;
+            }
+            
+            .character-portrait {
+                min-height: 400px;
+                padding: 20px;
+            }
+            
+            .portrait-frame {
+                height: 300px;
+            }
+            
+            .role-title {
+                font-size: 2rem;
+            }
+            
+            .info-panel {
+                padding: 20px;
+            }
+            
+            .panel-title {
+                font-size: 1.2rem;
+            }
+            
+            .nav-btn {
+                padding: 8px 15px;
+                font-size: 0.85rem;
+                margin: 5px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- ==================== 动态背景纹理 ==================== -->
+    <div class="bg-texture"></div>
+    
+    <!-- ==================== 粒子特效 ==================== -->
+    <div class="particles" id="particles"></div>
+    
+    <!-- ==================== 导航栏 ==================== -->
+    <nav class="navbar navbar-expand-lg navbar-cg">
+        <div class="container">
+            <!-- 网站标题 -->
+            <a class="navbar-brand" href="index.html">万灵抽卡</a>
+            
+            <!-- 移动端折叠按钮 -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" 
+                    data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <!-- 导航菜单 -->
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                <div class="d-flex">
+                    <!-- 角色图鉴按钮 -->
+                    <a href="role-list.html" class="nav-btn">角色图鉴</a>
+                    <!-- 返回抽卡按钮 -->
+                    <a href="index.html" class="nav-btn">返回抽卡</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- ==================== 角色展示主容器 ==================== -->
+    <div class="container role-container">
+        <div class="role-card">
+            <div class="row g-0">
+                <!-- ==================== 左侧：角色立绘 ==================== -->
+                <div class="col-lg-5">
+                    <div class="character-portrait">
+                        <!-- 立绘图片容器 -->
+                        <div class="portrait-frame">
+                            <!-- 占位图片，可替换为角色立绘 -->
+                            <img src="https://via.placeholder.com/350x400/0a0a0a/00C896?text=妖·田航" 
+                                 alt="妖·田航立绘">
+                        </div>
+                        
+                        <!-- 角色名称 -->
+                        <h1 class="role-title">妖·田航</h1>
+                        
+                        <!-- 角色前缀 -->
+                        <span class="role-prefix">妖异灵动 · 妖系</span>
+                    </div>
+                </div>
+                
+                <!-- ==================== 右侧：角色信息面板 ==================== -->
+                <div class="col-lg-7">
+                    <div class="info-panel">
+                        <!-- 面板标题 -->
+                        <h2 class="panel-title">🌿 角色数据面板</h2>
+                        
+                        <!-- ===== 游戏数据面板 ===== -->
+                        <div class="stat-item">
+                            <span class="stat-label">等级</span>
+                            <span class="stat-value">SSR · 97级</span>
+                        </div>
+                        
+                        <div class="stat-item">
+                            <span class="stat-label">阵营</span>
+                            <span class="stat-value">妖族</span>
+                        </div>
+                        
+                        <div class="stat-item">
+                            <span class="stat-label">稀有度</span>
+                            <span class="rarity-tag">传奇级</span>
+                        </div>
+                        
+                        <div class="stat-item">
+                            <span class="stat-label">战力</span>
+                            <span class="stat-value" style="color: #00ff88;">97,777</span>
+                        </div>
+                        
+                        <div class="stat-item">
+                            <span class="stat-label">核心天赋</span>
+                            <span class="stat-value">热爱运动、创意设计、逻辑编程，兼具行动力与创造力</span>
+                        </div>
+                        
+                        <p style="color: #808080; font-size: 0.85rem; margin-top: -10px;">
+                            【喜欢打篮球，具有执行力】
+                        </p>
+                        
+                        <!-- ===== 阵营倾向 ===== -->
+                        <div class="stat-item">
+                            <span class="stat-label">阵营倾向</span>
+                            <span class="stat-value">喜欢运动</span>
+                        </div>
+                        
+                        <!-- ===== 技能区域 ===== -->
+                        <div class="skill-section">
+                            <h3 class="panel-title">⚡ 角色技能</h3>
+                            
+                            <!-- 主动技能 -->
+                            <div class="skill-card">
+                                <div class="skill-name">
+                                    基础前端开发
+                                    <span class="skill-type">主动技能</span>
+                                </div>
+                                <p class="skill-desc">
+                                    编程能力突出
+                                </p>
+                            </div>
+                            
+                            <!-- 被动技能 -->
+                            <div class="skill-card">
+                                <div class="skill-name">
+                                    PS设计修图
+                                    <span class="skill-type">被动技能</span>
+                                </div>
+                                <p class="skill-desc">
+                                    会ps秀出美少女的照片
+                                </p>
+                            </div>
+                        </div>
+                        
+                        <!-- ===== 角色背景故事 ===== -->
+                        <div class="story-section">
+                            <h3 class="panel-title">📜 角色背景</h3>
+                            <div class="story-content">
+                                热爱技术与设计，擅长用代码搭建逻辑、用PS呈现视觉，同时保持运动习惯，性格踏实、动手能力强，正在不断提升综合技能。
+                            </div>
+                        </div>
+                        
+                        <!-- ===== 阵营使命 ===== -->
+                        <div class="story-section">
+                            <h3 class="panel-title">🎯 阵营使命</h3>
+                            <div class="story-content">
+                               精进前端、设计与编程能力，成为懂技术、会设计、能落地的全能型创作者，用技术与创意做出属于自己的作品。
+                            </div>
+                        </div>
+                        
+                        <!-- ===== 返回按钮 ===== -->
+                        <div class="action-buttons">
+                            <a href="index.html" class="btn-return">↩ 返回抽卡</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- ==================== 引入Bootstrap 5 JS ==================== -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- ==================== 粒子特效生成脚本 ==================== -->
+    <script>
+        // 创建粒子特效
+        function createParticles() {
+            const container = document.getElementById('particles');
+            const particleCount = 35; // 粒子数量，可修改
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                
+                // 随机位置
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.top = Math.random() * 100 + '%';
+                
+                // 随机动画延迟
+                particle.style.animationDelay = Math.random() * 6 + 's';
+                
+                // 随机大小
+                const size = Math.random() * 5 + 2;
+                particle.style.width = size + 'px';
+                particle.style.height = size + 'px';
+                
+                // 随机颜色（妖系青绿/墨黑）
+                const colors = ['#00C896', '#00ff88', '#00A080', '#505050'];
+                particle.style.background = colors[Math.floor(Math.random() * colors.length)];
+                
+                container.appendChild(particle);
+            }
+        }
+        
+        // 页面加载时执行
+        document.addEventListener('DOMContentLoaded', createParticles);
+    </script>
+</body>
+</html>
